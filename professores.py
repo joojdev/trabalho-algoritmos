@@ -39,8 +39,8 @@ def submenu_professores():
       lista_professores = list(armazenamento_professores.items())
 
       for (registro_funcional, dados) in lista_professores:
-        utilidades.imprime_caixa(lista_dados(registro_funcional, dados))
         print()
+        utilidades.imprime_caixa(lista_dados(registro_funcional, dados))
     elif (entrada == '2'):
       registro_funcional = input('  Digite o registro funcional: ')
       print()
@@ -72,10 +72,12 @@ def submenu_professores():
       else:
         posicao = menu_alteracao()
         antigo_valor = armazenamento_professores[registro_funcional][posicao]
-        print()
         novo_valor = input('  Digite um novo valor: ')
+        print()
 
         utilidades.imprime_caixa(['ATENÇÃO!', '  Você tem certeza que quer mudar esta informação? (S/N)', f'   Valor antigo: {antigo_valor}', f'   Valor novo: {novo_valor}'])
+
+        print()
 
         opcao = input(' > ')
 
@@ -95,7 +97,10 @@ def submenu_professores():
         utilidades.imprime_caixa(['ATENÇÃO!', 'Não existe nenhum professor com este registro funcional.'])
       else:
         nome = armazenamento_professores[registro_funcional][0]
+
+        print()
         utilidades.imprime_caixa(['ATENÇÃO!', f'  Você tem certeza que quer deletar o professor {nome}? (S/N)'])
+        print()
 
         opcao = input(' > ')
 
@@ -133,6 +138,8 @@ def menu_alteracao():
     ]
 
     utilidades.imprime_caixa(menu)
+
+    print()
 
     entrada = input(' > ')
 
