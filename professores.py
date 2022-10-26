@@ -1,7 +1,22 @@
 import utilidades
 import lib
 
+professores_txt = 'professores.txt'
+
 armazenamento_professores = {}
+
+if utilidades.existe_arquivo(professores_txt):
+  with open(professores_txt, 'r') as arquivo:
+    lista_linhas = arquivo.readlines()
+    lista_linhas = ''.join(lista_linhas)
+    lista_linhas = lista_linhas.split('\n')
+    lista_linhas = [_.split(';') for _ in lista_linhas]
+
+    for dados in lista_linhas:
+      chave = dados.pop(0)
+      armazenamento_professores[chave] = dados
+    
+    arquivo.close()
 
 def lista_dados(registro_funcional, dados):
   return [
@@ -51,6 +66,7 @@ def submenu_professores():
         utilidades.imprime_caixa(lista_dados(registro_funcional, professor))
     elif (entrada == '3'):
       registro_funcional = input('  Digite o registro funcional: ')
+      registro_funcional = ''.join(registro_funcional.split(';'))
       print()
       nome = input('  Digite o nome do professor: ')
       nascimento = input('  Digite a data de nascimento do professor: ')
@@ -61,9 +77,9 @@ def submenu_professores():
       email = input('  Digite o e-mail do professor: ')
 
       dados = [nome, nascimento, area, titulacao, email]
+      dados = [''.join(_.split(';')) for _ in dados]
 
       lib.adicionar_coisa(armazenamento_professores, registro_funcional, dados)
-
     elif (entrada == '4'):
       registro_funcional = input('  Digite o registro funcional: ')
 
@@ -114,6 +130,23 @@ def submenu_professores():
         else:
           utilidades.imprime_caixa(['Operação cancelada!'])
     elif (entrada == '6'):
+      lista_linhas = []
+
+      for (chave, dados) in list(armazenamento_professores.items()):
+        dados_formatados = ';'.join(dados)
+        linha = f'{chave};{dados_formatados}'
+
+        lista_linhas.append(linha)
+
+      with open(professores_txt, 'w') as arquivo:
+        for indice in range(len(lista_linhas)):
+          arquivo.write(lista_linhas[indice])
+          
+          if indice != len(lista_linhas) - 1:
+            arquivo.write('\n')
+      
+        arquivo.close()
+
       rod_professores = False
     else:
       utilidades.imprime_caixa(['ATENÇÃO!', 'Essa opção não existe.'])

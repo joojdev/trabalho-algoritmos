@@ -1,3 +1,8 @@
+import os
+
+def existe_arquivo(nome):
+  return os.path.exists(nome)
+
 def imprime_caixa(lista_mensagens):
   lista_len = [len(_) for _ in lista_mensagens]
   maior_len = max(lista_len)

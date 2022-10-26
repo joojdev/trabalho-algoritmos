@@ -1,7 +1,22 @@
 import utilidades
 import lib
 
+disciplinas_txt = 'disciplinas.txt'
+
 armazenamento_disciplinas = {}
+
+if utilidades.existe_arquivo(disciplinas_txt):
+  with open(disciplinas_txt, 'r') as arquivo:
+    lista_linhas = arquivo.readlines()
+    lista_linhas = ''.join(lista_linhas)
+    lista_linhas = lista_linhas.split('\n')
+    lista_linhas = [_.split(';') for _ in lista_linhas]
+
+    for dados in lista_linhas:
+      chave = dados.pop(0)
+      armazenamento_disciplinas[chave] = dados
+
+    arquivo.close()
 
 def lista_dados(sigla, dados):
   return [
@@ -50,6 +65,7 @@ def submenu_disciplinas():
         utilidades.imprime_caixa(lista_dados(sigla, disciplina))
     elif (entrada == '3'):
       sigla = input('  Digite a sigla da disciplina: ')
+      sigla = ''.join(sigla.split(';'))
       print()
       nome = input('  Digite o nome da disciplina: ')
       ementa = input('  Digite a ementa da disciplina: ')
@@ -58,9 +74,9 @@ def submenu_disciplinas():
       carga = input('  Digite a carga horária da disciplina: ')
 
       dados = [nome, ementa, creditos, carga]
+      dados = [''.join(_.split(';')) for _ in dados]
 
       lib.adicionar_coisa(armazenamento_disciplinas, sigla, dados)
-
     elif (entrada == '4'):
       sigla = input('  Digite a sigla da disciplina: ')
 
@@ -111,6 +127,23 @@ def submenu_disciplinas():
         else:
           utilidades.imprime_caixa(['Operação cancelada!'])
     elif (entrada == '6'):
+      lista_linhas = []
+
+      for (chave, dados) in list(armazenamento_disciplinas.items()):
+        dados_formatados = ';'.join(dados)
+        linha = f'{chave};{dados_formatados}'
+
+        lista_linhas.append(linha)
+
+      with open(disciplinas_txt, 'w') as arquivo:
+        for indice in range(len(lista_linhas)):
+          arquivo.write(lista_linhas[indice])
+
+          if indice != len(lista_linhas) - 1:
+            arquivo.write('\n')
+
+      arquivo.close()
+
       rod_disciplinas = False
     else:
       utilidades.imprime_caixa(['ATENÇÃO!', 'Essa opção não existe.'])
