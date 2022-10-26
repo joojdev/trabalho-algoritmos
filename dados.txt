@@ -1,0 +1,4 @@
+666;João Vitor;Masculino;Algoritmos
+6969;Juan;Masculino;Robótica
+123;Stefany;Feminino;Fuleragi
+456;Natália;Não Binário;Homossexualidade
