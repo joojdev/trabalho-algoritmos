@@ -15,3 +15,6 @@ def imprime_caixa(lista_mensagens):
     print('  | ' + mensagem + ' ' * (maior_len - len(mensagem)) + ' |')
 
   print(horizontais)
+
+def limpa_tela():
+  os.system('cls' if os.name == 'nt' else 'clear')

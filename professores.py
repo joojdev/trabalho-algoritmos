@@ -51,20 +51,25 @@ def submenu_professores():
     entrada = input(' > ')
 
     if (entrada == '1'):
+      utilidades.limpa_tela()
       lista_professores = list(armazenamento_professores.items())
 
       for (registro_funcional, dados) in lista_professores:
         print()
         utilidades.imprime_caixa(lista_dados(registro_funcional, dados))
     elif (entrada == '2'):
+      utilidades.limpa_tela()
       registro_funcional = input('  Digite o registro funcional: ')
       print()
       professor = lib.buscar_coisa(armazenamento_professores, registro_funcional)
+
+      utilidades.limpa_tela()
       if not professor:
         utilidades.imprime_caixa(['ATENÇÃO!', 'Não existe nenhum professor com este registro funcional.'])
       else:
         utilidades.imprime_caixa(lista_dados(registro_funcional, professor))
     elif (entrada == '3'):
+      utilidades.limpa_tela()
       registro_funcional = input('  Digite o registro funcional: ')
       registro_funcional = ''.join(registro_funcional.split(';'))
       print()
@@ -79,11 +84,19 @@ def submenu_professores():
       dados = [nome, nascimento, area, titulacao, email]
       dados = [''.join(_.split(';')) for _ in dados]
 
-      lib.adicionar_coisa(armazenamento_professores, registro_funcional, dados)
+      sucesso = lib.adicionar_coisa(armazenamento_professores, registro_funcional, dados)
+
+      utilidades.limpa_tela()
+      if sucesso:
+        utilidades.imprime_caixa(['ATENÇÃO!', 'Professor adicionado com sucesso.'])
+      else:
+        utilidades.imprime_caixa(['ATENÇÃO!', 'Já existe um professor com este registro funcional.'])
     elif (entrada == '4'):
+      utilidades.limpa_tela()
       registro_funcional = input('  Digite o registro funcional: ')
 
       if registro_funcional not in armazenamento_professores:
+        utilidades.limpa_tela()
         utilidades.imprime_caixa(['ATENÇÃO!', 'Não existe nenhum professor com este registro funcional.'])
       else:
         posicao = menu_alteracao()
@@ -97,6 +110,8 @@ def submenu_professores():
 
         opcao = input(' > ')
 
+        utilidades.limpa_tela()
+
         if opcao.lower() == 's':
           sucesso = lib.alterar_coisa(armazenamento_professores, registro_funcional, posicao, novo_valor)
 
@@ -107,9 +122,11 @@ def submenu_professores():
         else:
           utilidades.imprime_caixa(['Operação cancelada!'])
     elif (entrada == '5'):
+      utilidades.limpa_tela()
       registro_funcional = input('  Digite o registro funcional: ')
 
       if registro_funcional not in armazenamento_professores:
+        utilidades.limpa_tela()
         utilidades.imprime_caixa(['ATENÇÃO!', 'Não existe nenhum professor com este registro funcional.'])
       else:
         nome = armazenamento_professores[registro_funcional][0]
@@ -119,6 +136,8 @@ def submenu_professores():
         print()
 
         opcao = input(' > ')
+
+        utilidades.limpa_tela()
 
         if opcao.lower() == 's':
           sucesso = lib.deletar_coisa(armazenamento_professores, registro_funcional)
@@ -148,7 +167,9 @@ def submenu_professores():
         arquivo.close()
 
       rod_professores = False
+      utilidades.limpa_tela()
     else:
+      utilidades.limpa_tela()
       utilidades.imprime_caixa(['ATENÇÃO!', 'Essa opção não existe.'])
 
 def menu_alteracao():
