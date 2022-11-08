@@ -1,3 +1,4 @@
+from ctypes import util
 import utilidades
 import lib
 
@@ -50,20 +51,25 @@ def submenu_disciplinas():
     entrada = input(' > ')
 
     if (entrada == '1'):
+      utilidades.limpa_tela()
       lista_disciplinas = list(armazenamento_disciplinas.items())
 
       for (sigla, dados) in lista_disciplinas:
         print()
         utilidades.imprime_caixa(lista_dados(sigla, dados))
     elif (entrada == '2'):
+      utilidades.limpa_tela()
       sigla = input('  Digite a sigla da disciplina: ')
       print()
       disciplina = lib.buscar_coisa(armazenamento_disciplinas, sigla)
+
+      utilidades.limpa_tela()
       if not disciplina:
         utilidades.imprime_caixa(['ATENÇÃO!', 'Não existe nenhuma disciplina com esta sigla.'])
       else:
         utilidades.imprime_caixa(lista_dados(sigla, disciplina))
     elif (entrada == '3'):
+      utilidades.limpa_tela()
       sigla = input('  Digite a sigla da disciplina: ')
       sigla = ''.join(sigla.split(';'))
       print()
@@ -76,11 +82,19 @@ def submenu_disciplinas():
       dados = [nome, ementa, creditos, carga]
       dados = [''.join(_.split(';')) for _ in dados]
 
-      lib.adicionar_coisa(armazenamento_disciplinas, sigla, dados)
+      sucesso = lib.adicionar_coisa(armazenamento_disciplinas, sigla, dados)
+
+      utilidades.limpa_tela()
+      if sucesso:
+        utilidades.imprime_caixa(['ATENÇÃO!', 'Disciplina adicionada com sucesso.'])
+      else:
+        utilidades.imprime_caixa(['ATENÇÃO!', 'Já existe uma disciplina com esta sigla.'])
     elif (entrada == '4'):
+      utilidades.limpa_tela()
       sigla = input('  Digite a sigla da disciplina: ')
 
       if sigla not in armazenamento_disciplinas:
+        utilidades.limpa_tela()
         utilidades.imprime_caixa(['ATENÇÃO!', 'Não existe nenhuma disciplina com esta sigla.'])
       else:
         posicao = menu_alteracao()
@@ -94,6 +108,8 @@ def submenu_disciplinas():
 
         opcao = input(' > ')
 
+        utilidades.limpa_tela()
+
         if opcao.lower() == 's':
           sucesso = lib.alterar_coisa(armazenamento_disciplinas, sigla, posicao, novo_valor)
 
@@ -104,9 +120,11 @@ def submenu_disciplinas():
         else:
           utilidades.imprime_caixa(['Operação cancelada!'])
     elif (entrada == '5'):
+      utilidades.limpa_tela()
       sigla = input('  Digite a sigla da disciplina: ')
 
       if sigla not in armazenamento_disciplinas:
+        utilidades.limpa_tela()
         utilidades.imprime_caixa(['ATENÇÃO!', 'Não existe nenhuma disciplina com esta sigla.'])
       else:
         nome = armazenamento_disciplinas[sigla][0]
@@ -116,6 +134,8 @@ def submenu_disciplinas():
         print()
 
         opcao = input(' > ')
+
+        utilidades.limpa_tela()
 
         if opcao.lower() == 's':
           sucesso = lib.deletar_coisa(armazenamento_disciplinas, sigla)
@@ -145,7 +165,9 @@ def submenu_disciplinas():
       arquivo.close()
 
       rod_disciplinas = False
+      utilidades.limpa_tela()
     else:
+      utilidades.limpa_tela()
       utilidades.imprime_caixa(['ATENÇÃO!', 'Essa opção não existe.'])
 
 def menu_alteracao():

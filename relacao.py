@@ -1,3 +1,45 @@
+import utilidades
+
+relacao_txt = 'relacao.txt'
+
+armazenamento_relacao = {}
+
+if utilidades.existe_arquivo(relacao_txt):
+  with open(relacao_txt, 'r') as arquivo:
+    lista_linhas = arquivo.readlines()
+    lista_linhas = ''.join(lista_linhas)
+    lista_linhas = lista_linhas.split('\n')
+    lista_linhas = [_.split(';') for _ in lista_linhas]
+
+    for dados in lista_linhas:
+      professor = dados.pop(0)
+      disciplina = dados.pop(0)
+      ano = dados.pop(0)
+      semestre = dados.pop(0)
+      curso = dados.pop()
+
+      pacote = [professor, disciplina, ano, semestre, dados, curso]
+      chave = f'{professor} {disciplina} {ano} {semestre}'
+      armazenamento_relacao[chave] = pacote
+    
+    arquivo.close()
+
+def lista_dados(dados):
+  lista = [
+    f'Professor: {dados[0]}',
+    f'Disciplina: {dados[1]}',
+    f'Ano: {dados[2]}',
+    f'Semestre: {dados[3]}',
+    'Dias com horário:'
+  ]
+
+  for dia in dados[4]:
+    lista.append(f' {dia}')
+
+  lista.append(f'Curso: {dados[5]}')
+  
+  return lista
+
 def submenu_professores_disciplinas():
   rod_professores_disciplinas = True
 
@@ -21,9 +63,15 @@ def submenu_professores_disciplinas():
     entrada = input(' > ')
 
     if (entrada == '1'):
-      pass
+      utilidades.limpa_tela()
+      lista_relacao = list(armazenamento_relacao.items())
+
+      for (chave, dados) in lista_relacao:
+        print()
+        utilidades.imprime_caixa(lista_dados(dados))
     elif (entrada == '2'):
-      pass
+      utilidades.limpa_tela()
+      
     elif (entrada == '3'):
       pass
     elif (entrada == '4'):
