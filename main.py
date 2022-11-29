@@ -2,9 +2,7 @@ import utilidades
 from professores import submenu_professores
 from disciplinas import submenu_disciplinas
 from relacao import submenu_professores_disciplinas
-
-def relatorio():
-  pass
+from relatorio import submenu_relatorio
 
 rodando = True
 
@@ -37,7 +35,7 @@ while rodando:
     submenu_professores_disciplinas()
   elif (entrada == '4'):
     utilidades.limpa_tela()
-    relatorio()
+    submenu_relatorio()
   elif (entrada == '5'):
     rodando = False
   else:
