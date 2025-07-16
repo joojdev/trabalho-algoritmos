@@ -1,5 +1,0 @@
-123;Silvana;01/02/1985;Banco de Dados;Doutora;silvana@email.com
-456;Carlão;07/07/1979;Linguagens de Programação;Doutor;carlao@email.com
-789;Jorge;03/12/1994;Ciência da Computação;Doutor;jorge@email.com
-1234;Salina;01/09/1980;Ciência da Computação;Doutor;salina@email.com
-1337;Pedro;30/03/1979;Ciência da Computação;Doutor;nobile@email.com

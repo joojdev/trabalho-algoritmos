@@ -1,2 +1,0 @@
-ALG;Algoritmos;Ementa de algoritmos.;24;100 horas
-MAT;Matemática;Ementa de matemática.;26;200 horas
